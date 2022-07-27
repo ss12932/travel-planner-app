@@ -7,4 +7,4 @@ const router = Router();
 router.use('/travellers', travellers);
 router.use('/locations', locations);
 router.use('/trips', trips);
-module.exports = trips;
+module.exports = router;
