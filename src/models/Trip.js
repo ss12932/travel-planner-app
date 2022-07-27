@@ -1,4 +1,4 @@
-const { Model, Datatypes } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 const connection = require('../config/connection');
 
 class Trip extends Model {}
@@ -24,7 +24,7 @@ const schema = {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      mode: 'traveller',
+      model: 'traveller',
       key: 'id',
     },
   },
@@ -32,7 +32,7 @@ const schema = {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      mode: 'location',
+      model: 'location',
       key: 'id',
     },
   },
