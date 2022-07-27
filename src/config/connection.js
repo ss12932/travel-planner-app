@@ -1,5 +1,5 @@
 require('dotenv').config();
-const sequelize = require('sequelize');
+const Sequelize = require('sequelize');
 
 const DB_NAME = process.env.DB_NAME;
 const DB_USER = process.env.DB_USER;
@@ -12,7 +12,9 @@ const options = {
   port: 3306,
   logging: false,
 };
-
-const connection = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, options);
+// deploy to heroku, use Jawsdb otherwise use local config
+const connection = process.env.JAWSDB_URL
+  ? new Sequelize(process.env.JAWSDB_URL)
+  : new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, options);
 
 module.exports = connection;
