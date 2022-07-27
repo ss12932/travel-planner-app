@@ -4,6 +4,7 @@ const {
   getAllTravellers,
   createTraveller,
   getTravellerById,
+  deleteTravellerById,
 } = require('../../controllers/api/travellers');
 
 const router = Router();
