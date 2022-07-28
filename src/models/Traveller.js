@@ -1,4 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
+
 const connection = require('../config/connection');
 
 class Traveller extends Model {}
@@ -28,9 +29,10 @@ const options = {
   sequelize: connection,
   timestamps: true,
   freezeTableName: true,
-  underscored: false,
+  underscored: true,
   modelName: 'traveller',
 };
+
 Traveller.init(schema, options);
 
 module.exports = Traveller;

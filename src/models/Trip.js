@@ -1,4 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
+
 const connection = require('../config/connection');
 
 class Trip extends Model {}
@@ -18,7 +19,7 @@ const schema = {
   traveller_amount: {
     type: DataTypes.INTEGER,
     allowNull: true,
-    defaultValue: 100,
+    defaultValue: 1,
   },
   traveller_id: {
     type: DataTypes.INTEGER,
@@ -42,9 +43,10 @@ const options = {
   sequelize: connection,
   timestamps: true,
   freezeTableName: true,
-  underscored: false,
+  underscored: true,
   modelName: 'trip',
 };
+
 Trip.init(schema, options);
 
 module.exports = Trip;

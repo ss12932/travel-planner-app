@@ -20,7 +20,7 @@ const options = {
   sequelize: connection,
   timestamps: true,
   freezeTableName: true,
-  underscored: false,
+  underscored: true,
   modelName: 'location',
 };
 Location.init(schema, options);
