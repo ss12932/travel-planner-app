@@ -50,8 +50,22 @@ const getTravellerById = async (req, res) => {
     return res.status(500).json({ error: 'Failed to get a traveller' });
   }
 };
-const deleteTravellerById = (req, res) => {
-  res.send('deleteTravellerById');
+const deleteTravellerById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    await Traveller.destroy({
+      where: {
+        id,
+      },
+    });
+
+    return res.json({ data: 'Successfully deleted traveller' });
+  } catch (error) {
+    console.log(`[ERROR]: Failed to delete traveller | ${error.message}`);
+
+    return res.status(500).json({ error: 'Failed to delete traveller' });
+  }
 };
 
 module.exports = {
