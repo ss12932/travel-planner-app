@@ -1,3 +1,4 @@
+const { getPayloadWithValidFieldsOnly } = require('../../helpers');
 const { Traveller, Trip, Location } = require('../../models');
 
 const getAllTravellers = async (req, res) => {
@@ -9,26 +10,22 @@ const getAllTravellers = async (req, res) => {
     return res.status(500).json({ error: 'Failed to get all travellers' });
   }
 };
-const createTraveller = (req, res) => {
+const createTraveller = async (req, res) => {
   try {
-    const { id } = req.params;
-    const traveller = await Traveller.findByPk(id, {
-      include: [
-        {
-          model: Location,
-          through: Trip,
-        },
-      ],
-    });
-
-    if (!Traveller) {
-      return res.status(404).json({ error: 'Traveller not found' });
+    const payload = getPayloadWithValidFieldsOnly(['name', 'email'], req.body);
+    console.log(req.body);
+    if (Object.keys(payload).length !== 2) {
+      return res.status(400).json({ error: 'Bad Request' });
     }
+    const traveller = await Traveller.create(payload);
 
-    return res.json({ data: traveller });
+    return res.json({
+      data: traveller,
+      message: 'Successfully created a traveller',
+    });
   } catch (err) {
-    console.log(`[ERROR]: Failed to get a traveller | ${err.message}`);
-    return res.status(500).json({ error: 'Failed to get a traveller' });
+    console.log(`[ERROR]: Failed to create a traveller | ${err.message}`);
+    return res.status(500).json({ error: 'Failed to create a traveller' });
   }
 };
 const getTravellerById = async (req, res) => {
